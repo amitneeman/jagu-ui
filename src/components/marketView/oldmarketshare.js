@@ -25,40 +25,49 @@ ChartJS.register(
 );
 
 const Container = styled.div`
-border: lightgray solid;
+border: solid;
 height: 100%;
 width: 50%;
 `
 
 
 
-function MarketPerformance({ marketShareData }) {
+function MarketShare({ marketShareData }) {
+
     const options = {
         responsive: true,
         interaction: {
             mode: 'index',
+            intersect: false,
         },
         stacked: false,
         plugins: {
             title: {
                 display: true,
-                text: 'Performance vs Market',
+                text: 'Purchases - You vs Market',
+            },
+        },
+        scales: {
+            y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+            },
+            y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                grid: {
+                    drawOnChartArea: false,
+                },
             },
         },
     };
 
-    function normalizeData(weeklyData) {
-        let base = weeklyData[0];
-
-        weeklyData = weeklyData.map(e => e * 1/base);
-
-        return weeklyData
-    }
-
 
     const labels = marketShareData.map(d => `Week-${d.Week}`)
-    const marketPerformance = normalizeData(marketShareData.map(d => Number(d['Purchases: Total Count'])))
-    const yourPerformance = normalizeData(marketShareData.map(d => Number(d['Purchases: Brand Count'])))
+    const marketData = marketShareData.map(d => d['Purchases: Total Count'])
+    const userData = marketShareData.map(d => d['Purchases: Brand Count'])
 
 
     const data = {
@@ -67,18 +76,20 @@ function MarketPerformance({ marketShareData }) {
             {
                 fill: true,
                 label: 'User',
-                data: yourPerformance,
+                data: userData,
                 borderColor: 'rgb(53, 162, 235)',
-                backgroundColor: 'rgba(53, 162, 235, 0)',                
+                backgroundColor: 'rgba(53, 162, 235, 0.6)',
                 tension: 0.4,
+                yAxisID: 'y1'
             },
             {
                 fill: true,
                 label: 'Market',
-                data: marketPerformance,
+                data: marketData,
                 borderColor: 'rgb(220,20,60)',
-                backgroundColor: 'rgba(53, 162, 235, 0)',
+                backgroundColor: 'rgb(255,160,122,0.5)',
                 tension: 0.4,
+                yAxisID: 'y'
             },
         ],
     };
@@ -91,6 +102,6 @@ function MarketPerformance({ marketShareData }) {
     )
 }
 
-export default MarketPerformance;
+export default MarketShare;
 
 
