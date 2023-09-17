@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import React, { useContext } from 'react';
 import { DataContext } from '../../data/DataProvider';
 import { Audio } from 'react-loader-spinner'
+import AnalysisSection from '../analysis/AnalysisSection';
 
 // Define a styled component for the square
 const AppContainer = styled.div`
@@ -36,7 +37,7 @@ function Main() {
                     <Logo>Jagu </Logo>
                 </Header>,
                 <MarketViewSection key={2} />,
-                <AlertsSection key={3} />
+                <AnalysisSection key={3} />
             ]
             )
         } else {

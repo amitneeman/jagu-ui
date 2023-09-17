@@ -50,10 +50,8 @@ const Track = (props, state) => <StyledTrack {...props} index={state.index} />;
 
 
 function MarketViewSection() {
-    const { marketShareData} = useContext(DataContext);
-    const [minWeek, setMinWeek] = useState(1);
-    const [maxWeek, setMaxWeek] = useState(31);
-
+    const { marketShareData,minWeek, setMinWeek,maxWeek, setMaxWeek} = useContext(DataContext);
+    
     function setLimits(limits){
         setMinWeek(limits[0])
         setMaxWeek(limits[1])
@@ -77,8 +75,8 @@ function MarketViewSection() {
                 />
             </SliderContainer>
             <GraphsContainer>
-                <MarketShare marketShareData={filterData()} />
-                <MarketPerformance marketShareData={filterData()} />
+                <MarketShare marketShareData={marketShareData} />
+                <MarketPerformance marketShareData={marketShareData} />
             </GraphsContainer>
         </Container>
     );

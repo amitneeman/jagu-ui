@@ -10,7 +10,7 @@ import 'react-tabs/style/react-tabs.css';
 const Container = styled.div`
   height: 35%;
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
 `;
 
 function AlertsSection() {
@@ -61,10 +61,10 @@ function AlertsSection() {
                     <Tab>Top Losers 📉</Tab>
                 </TabList>
                 <TabPanel>
-                    <AlertList data={diffs.slice(0,5)}/>
+                    <AlertList data={diffs.slice(0,5).filter(e => e.Change > 0)}/>
                 </TabPanel>
                 <TabPanel>
-                    <AlertList data={diffs.slice( diffs.length - 5,diffs.length)}/>
+                    <AlertList data={diffs.slice( diffs.length - 5,diffs.length).filter(e => e.Change < 0)}/>
                 </TabPanel>
             </Tabs>
         </Container>
